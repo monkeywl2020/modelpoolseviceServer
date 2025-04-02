@@ -1,0 +1,2 @@
+# 在 .proto 文件所在目录运行 modelpool.proto：
+python -m grpc_tools.protoc -I. --python_out=. --grpc_python_out=. modelpool.proto

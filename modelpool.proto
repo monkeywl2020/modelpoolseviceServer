@@ -1,0 +1,38 @@
+syntax = "proto3";  // 使用 Protobuf 3 语法
+package modelpool;  // 定义命名空间，避免冲突
+
+// 定义模型数据结构
+message Model {
+  string name = 1;           // 模型名称 唯一标识  例如：gdfy_modelserver
+  string model_type = 2;     // 模型类型   例如：deepseek，qwen2.5 qwq
+  string model = 3;          // 模型路径名  例如：/models/DeepSeek-R1-Distill-Qwen-32B
+  string base_url = 4;       // 模型服务地址端口 例如：http://8.147.119.207:8987/v1
+  string status = 5;         // 状态（available/unavailable）
+  int32 load = 6;            // 负载
+  int32 usage_count = 7;     // // 使用该模型的 Agent 数量，每个agent使用模型服务客户端连接的时候都会将自己使用的 model + base_url 带上来。
+}
+
+//定义使用的模型数据结构
+message ModelUsage {
+  string base_url = 1;       // 客户端当前使用的服务地址，例如：http://8.147.119.207:8987/v1
+  string model = 2;          // 客户端当前使用的模型路径，例如：/models/DeepSeek-R1-Distill-Qwen-32B
+}
+
+// 定义请求消息（这里为空，因为不需要参数）
+message AvailableModelsRequest {
+  repeated ModelUsage model_usages = 1;  // 客户端使用的多个模型服务器信息列表
+  string client_id = 2;                  // 客户端唯一标识
+}
+
+// 定义响应消息
+message ModelListResponse {
+  repeated Model models = 1;  // 模型列表，使用 repeated 表示数组
+}
+
+// 定义服务
+service ModelPoolService {
+  // 获取所有模型
+  rpc GetModelList (AvailableModelsRequest) returns (ModelListResponse) {}
+  // 获取可用模型
+  rpc GetAvailableModels (AvailableModelsRequest) returns (ModelListResponse) {}
+}

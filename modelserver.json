@@ -1,0 +1,23 @@
+{
+    "health_check_interval": 10,
+    "models": [
+        {
+            "name": "gdfy_modelserver_deepseek",
+            "model_type": "deepseek",
+            "model": "/root/models/DeepSeek-R1-Distill-Qwen-32B",
+            "base_url": "http://8.147.119.207:8981/v1"
+        },
+        {
+            "name": "gdfy_modelserver_local_deepseek",
+            "model_type": "deepseek",
+            "model": "/models/DeepSeek-R1-Distill-Qwen-32B",
+            "base_url": "http://172.21.30.231:8987/v1"
+        },
+        {
+            "name": "230_modelserver_local_deepseek",
+            "model_type": "deepseek",
+            "model": "/models/DeepSeek-R1-Distill-Qwen-32B",
+            "base_url": "http://172.21.30.230:8985/v1"
+        }        
+    ]
+}
